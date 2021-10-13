@@ -24,5 +24,6 @@ Antigen may need to be installed.
 * [autojump](https://github.com/wting/autojump)
 * [ag](https://github.com/ggreer/the_silver_searcher)
 * [fd](https://github.com/sharkdp/fd)
+* [karabiner-elements (macOS)](https://karabiner-elements.pqrs.org)
 
 
