@@ -8,7 +8,7 @@ filetype off
 " Vim-plug section: Add plugins here, reload .vimrc with ':so %', then run
 " ':PlugInstall'.
 call plug#begin('~/.vim/plugged')
-" Plug 'tpope/vim-fugitive'           " git integration
+Plug 'tpope/vim-fugitive'           " git integration
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 let g:mkdp_preview_options = {
@@ -217,11 +217,17 @@ runtime! macros/matchit.vim
 nnoremap j gj
 nnoremap k gk
 
+" Allow mouse scrolling
+set mouse=a
+
 " Allow hidden buffers
 set hidden
 
 " Rendering
 set ttyfast
+
+" leader key lags (e.g. escape)
+set ttimeoutlen=100
 
 " Searching
 " clear search
@@ -238,6 +244,9 @@ noremap <leader><space> :noh<cr>
 "inoremap <F1> <ESC>:set invfullscreen<CR>a
 "nnoremap <F1> :set invfullscreen<CR>
 "vnoremap <F1> :set invfullscreen<CR>
+
+" Use system clipboard
+set clipboard+=unnamed
 
 " Formatting
 map <leader>q gqip
@@ -285,9 +294,10 @@ fu! Pmode() abort
     return b:active?strtrans(mode()):' '
 endfu
 autocmd VimEnter,ColorScheme * 
-            \ hi LineNr ctermfg=14 ctermbg=7 guifg=#BF3A16 guibg=#E9E3CC |
+            \ hi LineNr ctermfg=14 ctermbg=NONE guifg=#BF3A16 guibg=#E9E3CC |
             \ hi CursorLine ctermbg=7 guibg=Grey90 |
-            \ hi CursorLineNr ctermfg=130 gui=bold
+            \ hi CursorLineNr ctermfg=130 gui=bold |
+            \ hi Normal ctermbg=NONE guibg=#FBFAF5
 
 " Normal, Insert, Visual, Command, Replace colors
 autocmd VimEnter,ColorScheme *
@@ -307,11 +317,13 @@ set statusline+=%#User3#%{(Pmode()==#'v')?'\ \ VISUAL\ ':''}
 set statusline+=%#User3#%{(Pmode()==#'V')?'\ \ V·Line\ ':''}
 set statusline+=%#User3#%{(Pmode()=='^V')?'\ \ V·Block\ ':''}
 set statusline+=%#User4#%{(Pmode()=='c')?'\ \ COMMAND\ ':''}"
-set statusline+=%#DiffDelete#\ %#DiffAdd#%{b:gitbranch}%#DiffDelete#\ 
+set statusline+=%#DiffDelete#\ %#DiffAdd#%{FugitiveStatusline()}%#DiffDelete#\ 
+" If no vim fugitive, use the following line instead of the last:
+" set statusline+=%#DiffDelete#\ %#DiffAdd#%{b:gitbranch}%#DiffDelete#\
 set statusline+=%{b:active?'»':''}
 set statusline+=%#DiffAdd#
 set statusline+=\ %f
-set statusline+=%#LineNr#
+" set statusline+=%#LineNr#
 set statusline+=%m
 set statusline+=%=
 set statusline+=\ %y

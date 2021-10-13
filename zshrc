@@ -1,3 +1,12 @@
+clear
+umask 007
+# stop start output
+stty -ixon
+autoload -Uz compinit
+compinit
+export EDITOR="nvim"
+
+
 ## antigen stuff
 source $HOME/.antigen/antigen.zsh
 # Load the oh-my-zsh's library.
@@ -12,5 +21,4 @@ antigen apply
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-alias fhsnail="mosh wdumm@snail.fhcrc.org"
-[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+[ -f ~/.zshrc_machine_specific ] && source ~/.zshrc_machine_specific
