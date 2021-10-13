@@ -1,0 +1,78 @@
+# this is from https://castel.dev/post/lecture-notes-1/
+snippet bgn "begin{} / end{}" wA
+\begin{$1}
+	$0
+\end{$1}
+endsnippet
+
+# snippet { "Math" iA
+# \{${1}\}${0}
+# endsnippet
+
+# snippet ( "Math" iA
+# (${1})${0}
+# endsnippet
+
+
+snippet stt "Math" iA
+\\left\\\{${1} \\right\\\}${0}
+endsnippet
+
+snippet ptt "Math" iA
+\\left(${1} \\right)${0}
+endsnippet
+
+snippet gtt "Math" iA
+\\left\langle${1} \\right\rangle${0}
+endsnippet
+
+
+# snippet [ "Math" iA
+# [${1}]${0}
+# endsnippet
+snippet ttp "Math" iA
+^{${1} }${0}
+endsnippet
+
+snippet ivv "Math" iA
+^{-1}
+endsnippet
+
+
+snippet btt "Math" iA
+\\left[${1} \\right]${0}
+endsnippet
+
+
+snippet mk "Math" wA
+$$1 $$0
+endsnippet
+
+snippet dm "Math" wA
+\[
+$1
+.\] $0
+endsnippet
+
+snippet // "Fraction" iA
+\\frac{$1}{$2}$0
+endsnippet
+
+snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "Fraction" wrA
+\\frac{`!p snip.rv = match.group(1)`}{$1}$0
+endsnippet
+
+priority 1000
+snippet '^.*\)/' "() Fraction" wrA
+`!p
+stripped = match.string[:-1]
+depth = 0
+i = len(stripped) - 1
+while True:
+	if stripped[i] == ')': depth += 1
+	if stripped[i] == '(': depth -= 1
+	if depth == 0: break;
+	i -= 1
+snip.rv = stripped[0:i] + "\\frac{" + stripped[i+1:-1] + "}"
+`{$1}$0
+endsnippet

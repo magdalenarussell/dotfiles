@@ -1,0 +1,322 @@
+" Don't try to be vi compatible
+set nocompatible
+
+" Helps force plugins to load correctly when it is turned back on below
+filetype off
+
+" ##################### Plugins ###############################
+" Vim-plug section: Add plugins here, reload .vimrc with ':so %', then run
+" ':PlugInstall'.
+call plug#begin('~/.vim/plugged')
+" Plug 'tpope/vim-fugitive'           " git integration
+
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+let g:mkdp_preview_options = {
+    \ 'mkit': {},
+    \ 'katex': {},
+    \ 'uml': {},
+    \ 'maid': {},
+    \ 'disable_sync_scroll': 1,
+    \ 'hide_yaml_meta': 1,
+    \ 'sequence_diagrams': {},
+    \ 'flowchart_diagrams': {},
+    \ 'content_editable': v:false,
+    \ 'disable_filename': 0
+    \ }
+
+Plug 'altercation/vim-colors-solarized' " Colorscheme
+
+Plug 'vim-scripts/YankRing.vim' " yank ring like functionality
+
+Plug 'easymotion/vim-easymotion'
+
+" Plug 'itchyny/lightline.vim'        " statusbar
+" " Set lightline colorscheme
+" let g:lightline = {
+"       \ 'colorscheme': 'solarized',
+"       \ 'active': {
+"       \   'left': [ [ 'mode', 'paste' ],
+"       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+"       \ },
+"       \ 'component_function': {
+"       \   'gitbranch': 'FugitiveHead'
+"       \ },
+"       \ }
+
+" Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }         " sidebar file tree view
+
+Plug 'lervag/vimtex', {'for': 'tex'}                " LaTeX integration
+" LaTeX settings
+let g:tex_flavor = 'latex'
+let g:vimtex_view_method = 'skim'
+let g:vimtex_quickfix_mode=0
+set conceallevel=0
+let g:tex_conceal=''
+if has('nvim')
+let g:vimtex_compiler_progname = 'nvr'
+endif
+
+Plug 'tpope/vim-commentary'         " Comment and uncomment, 'gcc'
+
+Plug 'sirver/ultisnips'
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips"
+
+Plug 'tmsvg/pear-tree'              " Auto-close brackets
+let g:pear_tree_smart_openers = 0
+let g:pear_tree_smart_closers = 0
+let g:pear_tree_smart_backspace = 0
+let g:pear_tree_pairs = {
+            \ '(': {'closer': ')'},
+            \ '[': {'closer': ']'},
+            \ '{': {'closer': '}'},
+            \ "'": {'closer': "'"},
+            \ '"': {'closer': '"'}
+            \ }
+
+Plug 'sheerun/vim-polyglot'
+call plug#end()
+" ###################### End Plugins ################
+
+
+" Turn on syntax highlighting
+syntax enable
+highlight Comment cterm=italic
+" Allow italics to display on mac
+let &t_ZH="\e[3m"
+let &t_ZR="\e[23m"
+
+" For plugins to load correctly
+filetype plugin indent on
+
+" Pick a leader key
+let mapleader = ","
+
+" #################################
+" Plugin Settings                 #
+" #################################
+" #### Plug 'tpope/vim-fugitive'           " git integration
+
+" #### Plug 'altercation/vim-colors-solarized' " Colorscheme
+" Color scheme (terminal)
+" set t_Co=256
+set background=light
+" let g:solarized_termcolors=256
+" let g:solarized_termtrans=1
+colorscheme solarized
+
+" #### Plug 'lervag/vimtex'                " LaTeX integration
+
+" #### Plug 'tpope/vim-commentary'         " Comment and uncomment, 'gcc'
+" use ',/' to comment
+noremap <leader>/ :Commentary<cr>
+
+" #### Plug 'sirver/ultisnips'
+
+" #### Plug 'tmsvg/pear-tree'              " Auto-close brackets
+
+" #### Plug 'easymotion/vim-easymotion'
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+let g:EasyMotion_smartcase = 1
+map s <Plug>(easymotion-overwin-f)
+imap  <Plug>(easymotion-s)
+
+
+" #### Plug 'sheerun/vim-polyglot'
+" ################## End Plugin Settings ######################
+
+
+" Map ; to : in normal mode, get ; with :.
+nnoremap ; :
+nnoremap : ;
+"; Should work normally everywhere else, including in search and commands
+cnoremap ; ;
+
+" Open Config Files
+noremap <leader>erc :sp ~/.vim/vimrc<cr>
+noremap <leader>eft :sp ~/.vim/after/ftplugin/<C-R>=&filetype<CR>.vim<CR>
+noremap <leader>esp :UltiSnipsEdit<cr>
+
+" " Implement a simple yank ring, using the named registers. g:yankcount contains
+" " the current register, which is incremented whenever an incremented paste
+" " operation is performed. Normal paste p and P now paste from the g:yankcount
+" " register. g:yankcount is reset on yanks and deletes.
+" let g:yankcount=""
+
+" fu YankRingIncrement()
+"     if strlen(g:yankcount)==0
+"         let g:yankcount=0
+"     elseif g:yankcount==9
+"         let g:yankcount=""
+"     else
+"         let g:yankcount+=1
+"     endif
+"     return getreg(g:yankcount)
+" endfu
+" " reset yankcount to "" on any yank or delete with autocmd TextYankPost.
+" autocmd TextYankPost * let g:yankcount=""
+
+" nnoremap <leader>rp :resetyankcount()<CR>
+" nnoremap <leader>p "=YankRingIncrement()<CR>p
+" nnoremap <leader>up u"=YankRingIncrement()<CR>p
+" nnoremap P "=getreg(g:yankcount)<CR>P
+" nnoremap p "=getreg(g:yankcount)<CR>p
+
+
+" Security
+set modelines=0
+
+" Show line numbers
+:set number relativenumber
+
+" Show file stats
+set ruler
+
+" Blink cursor on error instead of beeping (grr)
+set visualbell
+
+" Encoding
+set encoding=utf-8
+
+" Set GUI Font and options
+set guifont=RobotoMonoForPowerline-Light:h14
+" remove scrollbars
+set guioptions=
+
+" Whitespace
+""General Setting use a tab width of 4 space chars.
+set wrap
+set textwidth=79
+set formatoptions=cqrn1
+set tabstop=4       " The width of a TAB is set to 4.
+                    " Still it is a \t. It is just that
+                    " Vim will interpret it to be having
+                    " a width of 4.
+set shiftwidth=4    " Indents will have a width of 4.
+set softtabstop=4   " Sets the number of columns for a TAB.
+set expandtab       " Expand TABs to spaces.
+
+" Only do this part when compiled with support for autocommands.
+if has("autocmd")
+    " Use filetype detection and file-based automatic indenting.
+    filetype plugin indent on
+
+    " Use actual tab chars in Makefiles.
+    autocmd FileType make set tabstop=8 shiftwidth=8 softtabstop=0 noexpandtab
+endif
+
+" Cursor motion
+set scrolloff=3
+set backspace=indent,eol,start
+set matchpairs+=<:> " use % to jump between pairs
+runtime! macros/matchit.vim
+
+" Move up/down editor lines
+nnoremap j gj
+nnoremap k gk
+
+" Allow hidden buffers
+set hidden
+
+" Rendering
+set ttyfast
+
+" Searching
+" clear search
+nnoremap / /\v
+vnoremap / /\v
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set showmatch
+noremap <leader><space> :noh<cr>
+
+" Remap help key.
+"inoremap <F1> <ESC>:set invfullscreen<CR>a
+"nnoremap <F1> :set invfullscreen<CR>
+"vnoremap <F1> :set invfullscreen<CR>
+
+" Formatting
+map <leader>q gqip
+
+" Visualize tabs and newlines
+set listchars=tab:▸\ ,eol:¬
+" Uncomment this to enable by default: set list " To enable by default Or use
+" your leader key + l to toggle on/off
+
+" Toggle tabs and EOL
+noremap <leader>l :set list!<CR> 
+
+augroup BgHighlight
+    autocmd!
+    autocmd WinEnter * set relativenumber
+    autocmd WinLeave * set norelativenumber
+augroup END
+
+
+" #### Status Line Configuration: ####
+set noshowmode
+
+" Format git branch name for current buffer
+function! StatuslineGit()
+  let l:branchname = system(printf("git -C %s rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'",expand('%:p:h:S')))
+  return strlen(l:branchname) > 3?'‹'.l:branchname.'›':''
+endfunction
+
+" Update git branch name variable for current buffer
+augroup gitstatusline
+    au!
+
+    autocmd BufEnter,FocusGained,BufWritePost *
+        \ let b:gitbranch = StatuslineGit()
+augroup end
+
+" Update buffer variable 'active' to reflect if in focus
+augroup status
+  autocmd!
+  autocmd VimEnter,WinEnter,BufWinEnter * let b:active = 1
+  autocmd BufLeave,WinLeave * let b:active = 0
+augroup END
+
+fu! Pmode() abort
+    return b:active?strtrans(mode()):' '
+endfu
+autocmd VimEnter,ColorScheme * 
+            \ hi LineNr ctermfg=14 ctermbg=7 guifg=#BF3A16 guibg=#E9E3CC |
+            \ hi CursorLine ctermbg=7 guibg=Grey90 |
+            \ hi CursorLineNr ctermfg=130 gui=bold
+
+" Normal, Insert, Visual, Command, Replace colors
+autocmd VimEnter,ColorScheme *
+        \ hi User1 cterm=reverse ctermfg=4 ctermbg=7 gui=bold guifg=#FCF4DC guibg=#2077C7 |
+        \ hi User2 cterm=reverse ctermfg=2 ctermbg=7 gui=bold guifg=#FCF4DC guibg=#738A05 |
+        \ hi User3 cterm=reverse ctermfg=5 ctermbg=7 gui=bold guifg=#FCF4DC guibg=#C61B6F |
+        \ hi User4 cterm=reverse ctermfg=10 ctermbg=7 gui=bold guifg=#FCF4DC guibg=#465A62 |
+        \ hi User5 cterm=reverse ctermfg=13 ctermbg=7 gui=bold guifg=#FCF4DC guibg=#5A5AB8
+
+set statusline=
+" set statusline+=%#PmenuSel#%{Pmode()}
+" set statusline+=%#PmenuSel#%{b:active}
+set statusline+=%#User1#%{(Pmode()=='n')?'\ \ NORMAL\ ':''}
+set statusline+=%#User2#%{(Pmode()=='i')?'\ \ INSERT\ ':''}
+set statusline+=%#User5#%{(Pmode()=='R')?'\ \ REPLACE\ ':''}
+set statusline+=%#User3#%{(Pmode()==#'v')?'\ \ VISUAL\ ':''}
+set statusline+=%#User3#%{(Pmode()==#'V')?'\ \ V·Line\ ':''}
+set statusline+=%#User3#%{(Pmode()=='^V')?'\ \ V·Block\ ':''}
+set statusline+=%#User4#%{(Pmode()=='c')?'\ \ COMMAND\ ':''}"
+set statusline+=%#DiffDelete#\ %#DiffAdd#%{b:gitbranch}%#DiffDelete#\ 
+set statusline+=%{b:active?'»':''}
+set statusline+=%#DiffAdd#
+set statusline+=\ %f
+set statusline+=%#LineNr#
+set statusline+=%m
+set statusline+=%=
+set statusline+=\ %y
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\[%{&fileformat}\]
+set statusline+=\ %p%%\ %c\ 
+set laststatus=2
+set showcmd   " Show command being typed at bottom right
