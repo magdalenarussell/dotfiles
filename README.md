@@ -8,6 +8,9 @@ cd ~/.dotfiles
 ./install
 ```
 
+It may be necessary to run `:PlugInstall` on first run of (n)vim to resolve
+errors.
+
 Dotfile links are managed by Dotbot.
 
 ## Zsh
