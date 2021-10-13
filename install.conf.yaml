@@ -9,6 +9,7 @@
     ~/.vim: vim
     ~/.tmux.conf: tmux.conf
     ~/NOTES.md: NOTES.md
+    ~/.config/nvim/init.vim: init.vim
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
