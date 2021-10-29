@@ -1,0 +1,83 @@
+{
+  "title": "Alternative uses for caps lock and long press tab. Install by opening in browser karabiner://karabiner/assets/complex_modifications/import?url=<LocationOfThisFile>",
+  "rules": [
+    {
+      "description": "Caps Lock to Escape on single press, command on press and hold.",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "caps_lock",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_command"
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "escape"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Tab to right option on press and hold.",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "tab",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_option"
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "tab"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Return to right control on press and hold.",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "return_or_enter",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_control"
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "return_or_enter"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
