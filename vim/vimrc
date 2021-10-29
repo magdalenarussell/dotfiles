@@ -10,6 +10,10 @@ filetype off
 call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-fugitive'           " git integration
 
+" Plug 'davidhalter/jedi-vim'         " python completion and documentation
+
+Plug 'ojroques/vim-oscyank'         " osc 52 yank
+
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 let g:mkdp_preview_options = {
     \ 'mkit': {},
@@ -99,6 +103,17 @@ let mapleader = ","
 " #################################
 " #### Plug 'tpope/vim-fugitive'           " git integration
 
+" #### Plug 'ojroques/vim-oscyank'         " osc 52 yank
+nmap <leader>c <Plug>OSCYank
+vnoremap <leader>c :OSCYank<CR>
+
+
+" #### Plug 'davidhalter/jedi-vim'         " python completion and documentation
+
+
+" #### Plug 'vim-scripts/YankRing.vim' " yank ring like functionality
+nnoremap <leader>p :YRShow<CR>
+
 " #### Plug 'altercation/vim-colors-solarized' " Colorscheme
 " Color scheme (terminal)
 " set t_Co=256
@@ -128,9 +143,11 @@ imap  <Plug>(easymotion-s)
 " ################## End Plugin Settings ######################
 
 
-" Map ; to : in normal mode, get ; with :.
+" Map ; to : in normal and visual mode, get ; with :.
 nnoremap ; :
 nnoremap : ;
+vnoremap ; :
+vnoremap : ;
 "; Should work normally everywhere else, including in search and commands
 cnoremap ; ;
 
@@ -246,7 +263,7 @@ noremap <leader><space> :noh<cr>
 "vnoremap <F1> :set invfullscreen<CR>
 
 " Use system clipboard
-set clipboard+=unnamed
+" set clipboard+=unnamed
 
 " Formatting
 map <leader>q gqip
