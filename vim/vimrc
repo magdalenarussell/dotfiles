@@ -34,6 +34,7 @@ Plug 'vim-scripts/YankRing.vim' " yank ring like functionality
 
 Plug 'easymotion/vim-easymotion'
 
+Plug 'ycm-core/YouCompleteMe'
 " Plug 'itchyny/lightline.vim'        " statusbar
 " " Set lightline colorscheme
 " let g:lightline = {
@@ -109,6 +110,8 @@ let mapleader = ","
 nmap <leader>c <Plug>OSCYank
 vnoremap <leader>c :OSCYank<CR>
 
+
+" #### Plug 'ycm-core/YouCompleteMe'
 
 " #### Plug 'davidhalter/jedi-vim'         " python completion and documentation
 
