@@ -26,7 +26,7 @@ let g:mkdp_preview_options = {
 
 Plug 'altercation/vim-colors-solarized' " Colorscheme
 
-Plug 'vim-scripts/YankRing.vim' " yank ring like functionality
+" Plug 'vim-scripts/YankRing.vim' " yank ring like functionality
 
 Plug 'easymotion/vim-easymotion'
 
@@ -157,7 +157,7 @@ noremap <leader>esp :UltiSnipsEdit<cr>
 "     endif
 "     return getreg(g:yankcount)
 " endfu
-" " reset yankcount to "" on any yank or delete with autocmd TextYankPost.
+"  reset yankcount to  on any yank or delete with autocmd TextYankPost.
 " autocmd TextYankPost * let g:yankcount=""
 
 " nnoremap <leader>rp :resetyankcount()<CR>
