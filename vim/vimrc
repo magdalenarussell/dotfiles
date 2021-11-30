@@ -56,7 +56,7 @@ Plug 'lervag/vimtex', {'for': 'tex'}                " LaTeX integration
 " LaTeX settings
 let g:tex_flavor = 'latex'
 let g:vimtex_view_method = 'skim'
-let g:vimtex_quickfix_mode=2
+let g:vimtex_quickfix_mode=0
 let g:vimtex_syntax_conceal_disable=1
 if has('nvim')
 let g:vimtex_compiler_progname = 'nvr'
@@ -318,6 +318,7 @@ fu! Pmode() abort
     return b:active?strtrans(mode()):' '
 endfu
 autocmd VimEnter,ColorScheme * 
+            \ hi texMathZoneX ctermbg=NONE guibg=#E9E3CC |
             \ hi LineNr ctermfg=14 ctermbg=NONE guifg=#BF3A16 guibg=#E9E3CC |
             \ hi CursorLine ctermbg=7 guibg=Grey90 |
             \ hi CursorLineNr ctermfg=130 gui=bold |
@@ -356,3 +357,15 @@ set statusline+=\[%{&fileformat}\]
 set statusline+=\ %p%%\ %c\ 
 set laststatus=2
 set showcmd   " Show command being typed at bottom right
+
+
+" Find highlight groups under cursor
+function! SynStack ()
+    for i1 in synstack(line("."), col("."))
+        let i2 = synIDtrans(i1)
+        let n1 = synIDattr(i1, "name")
+        let n2 = synIDattr(i2, "name")
+        echo n1 "->" n2
+    endfor
+endfunction
+noremap <leader>sh :call SynStack()<CR>
