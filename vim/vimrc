@@ -12,6 +12,8 @@ Plug 'tpope/vim-fugitive'           " git integration
 
 " Plug 'davidhalter/jedi-vim'         " python completion and documentation
 
+Plug 'ervandew/supertab'
+
 Plug 'ojroques/vim-oscyank'         " osc 52 yank
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
@@ -34,7 +36,7 @@ Plug 'altercation/vim-colors-solarized' " Colorscheme
 
 Plug 'easymotion/vim-easymotion'
 
-Plug 'ycm-core/YouCompleteMe'
+" Plug 'ycm-core/YouCompleteMe'
 " Plug 'itchyny/lightline.vim'        " statusbar
 " " Set lightline colorscheme
 " let g:lightline = {
@@ -54,9 +56,8 @@ Plug 'lervag/vimtex', {'for': 'tex'}                " LaTeX integration
 " LaTeX settings
 let g:tex_flavor = 'latex'
 let g:vimtex_view_method = 'skim'
-let g:vimtex_quickfix_mode=0
-set conceallevel=0
-let g:tex_conceal=''
+let g:vimtex_quickfix_mode=2
+let g:vimtex_syntax_conceal_disable=1
 if has('nvim')
 let g:vimtex_compiler_progname = 'nvr'
 endif
@@ -111,7 +112,8 @@ nmap <leader>c <Plug>OSCYank
 vnoremap <leader>c :OSCYank<CR>
 
 
-" #### Plug 'ycm-core/YouCompleteMe'
+" " #### Plug 'ycm-core/YouCompleteMe'
+" let g:ycm_key_list_select_completion = ['<Enter>', '<Down>']
 
 " #### Plug 'davidhalter/jedi-vim'         " python completion and documentation
 
