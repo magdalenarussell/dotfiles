@@ -64,13 +64,11 @@ endif
 
 Plug 'tpope/vim-commentary'         " Comment and uncomment, 'gcc'
 
-if has('python3')
-Plug 'sirver/ultisnips'
+Plug 'sirver/ultisnips', { 'do': 'bash ~/.dotfiles/vim/update-vim-python.sh' }
 let g:UltiSnipsExpandTrigger = '<tab>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 let g:UltiSnipsSnippetsDir = "~/.vim/UltiSnips"
-endif
 
 Plug 'tmsvg/pear-tree'              " Auto-close brackets
 let g:pear_tree_smart_openers = 0
