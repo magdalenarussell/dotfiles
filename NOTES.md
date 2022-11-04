@@ -217,3 +217,57 @@ In tmux, use tmux-yank according to their instructions, and set
 set -g @override_copy_command 'lemonade copy'
 ```
 in `.tmux.conf`.
+
+
+### Clipboard syncing over ssh or mosh or whatever using OSC 52 (preferred now):
+
+Requires:
+* mosh 1.4.0
+* tmux >=3.3 (if using with mosh, otherwise version doesn't matter)
+* [vim-oscyank](https://github.com/ojroques/vim-oscyank)
+* a local terminal that supports OSC 52 copy e.g. iTerm 2, with the modify
+    local clipboard setting turned on in preferences
+
+Idea: the shell can modify the local clipboard via escape sequences. Tmux can
+send these escape sequences on copy, as can vim via the vim-oscyank plugin.
+Since they're just escape sequences, they modify your local clipboard even if
+they're being sent from a machine that you're connected to via ssh, mosh, or
+ssh twice, or mosh then ssh, etc.
+
+You can test that your terminal supports OSC 52 copy by running
+
+```console
+$ printf "\033]52;c;$(printf "%s" "hello" | base64)\a"
+```
+
+after which "hello" should be in your local clipboard.
+
+To make this work in tmux, add the following to your `tmux.conf`
+
+```console
+set -g set-clipboard on
+set-option -ag terminal-overrides ",xterm-256color:Ms=\\E]52;c;%p2%s\\7"
+```
+
+If you don't intend to use mosh, the second line isn't necessary.
+Now you should be able to copy to your local clipboard using copy-on-select in
+tmux, even when tmux is running on a server to which you're connected via
+mosh/ssh.
+Again, if using mosh, you need tmux >=3.3.
+
+To make this work in vim, install the vim-oscyank plugin, and add a convenient
+mapping to copy to clipboard to your vimrc, like:
+
+```console
+nmap <leader>c <Plug>OSCYank
+vnoremap <leader>c :OSCYank<CR>
+```
+
+If using tmux >=3.3, you need this in your vimrc too:
+
+```console
+let g:oscyank_term = 'default'
+```
+
+Now you should be able to copy to the local clipboard via your mapping, even
+when vim is running on a remote server to which you're connected with mosh/ssh.

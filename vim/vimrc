@@ -106,6 +106,10 @@ let mapleader = ","
 " #### Plug 'tpope/vim-fugitive'           " git integration
 
 " #### Plug 'ojroques/vim-oscyank'         " osc 52 yank
+" required for tmux > 3.3? avoids doing something special when in tmux
+" to support earlier versions.
+let g:oscyank_term = 'default'
+
 nmap <leader>c <Plug>OSCYank
 vnoremap <leader>c :OSCYank<CR>
 
