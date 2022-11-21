@@ -214,6 +214,7 @@ set guioptions=
 " Whitespace
 ""General Setting use a tab width of 4 space chars.
 set wrap
+set linebreak
 set textwidth=79
 set formatoptions=cqrn1
 set tabstop=4       " The width of a TAB is set to 4.
@@ -223,6 +224,11 @@ set tabstop=4       " The width of a TAB is set to 4.
 set shiftwidth=4    " Indents will have a width of 4.
 set softtabstop=4   " Sets the number of columns for a TAB.
 set expandtab       " Expand TABs to spaces.
+
+"" Avoid automatically inserting line breaks in newly entered text
+set formatoptions-=t
+set formatoptions-=l
+
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
