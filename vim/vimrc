@@ -167,6 +167,9 @@ noremap <leader>erc :sp ~/.vim/vimrc<cr>
 noremap <leader>eft :sp ~/.vim/after/ftplugin/<C-R>=&filetype<CR>.vim<CR>
 noremap <leader>esp :UltiSnipsEdit<cr>
 
+" use gp to select last-modified (e.g. pasted) text using last visual mode
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+
 " " Implement a simple yank ring, using the named registers. g:yankcount contains
 " " the current register, which is incremented whenever an incremented paste
 " " operation is performed. Normal paste p and P now paste from the g:yankcount
