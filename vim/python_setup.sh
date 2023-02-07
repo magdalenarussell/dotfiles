@@ -1,9 +1,11 @@
 #!/bin/bash
 set -eu
 
-python3 -m venv python-vim-env
-source python-vim-env/bin/activate
-pip install -r nvim-requirements.txt
+prefix=~/.dotfiles/vim
+
+[ -d $prefix/python-vim-env ] || python3 -m venv $prefix/python-vim-env
+source $prefix/python-vim-env/bin/activate
+pip install -r $prefix/nvim-requirements.txt
 
 pythonpath=$(which python)
 echo Ensure the following are set in init.vim:

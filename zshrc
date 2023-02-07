@@ -19,6 +19,7 @@ antigen theme https://gist.github.com/willdumm/c672692545433a858303c079b64955ca 
 # Tell antigen that you're done.
 antigen apply
 
+fpath=(~/.zsh $fpath)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.zshrc_machine_specific ] && source ~/.zshrc_machine_specific
 

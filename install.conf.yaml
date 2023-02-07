@@ -15,3 +15,4 @@
   - [git submodule update --init --recursive, Installing submodules]
   - [curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim, Installing vim-plug]
   - [./vim/python_setup.sh, Setting up nvim python3 virtualenv]
+  - [curl -fLo ~/.zsh/_git/git-completion.zsh --create-dirs https://git.kernel.org/pub/scm/git/git.git/plain/contrib/completion/git-completion.zsh, Installing zsh git completion]
