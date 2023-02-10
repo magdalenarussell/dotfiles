@@ -221,18 +221,26 @@ in `.tmux.conf`.
 
 ### Clipboard syncing over ssh or mosh or whatever using OSC 52 (preferred now):
 
-Requires:
+#### Idea:
+This is a way to update your local clipboard on copy in a terminal, even when copying
+in a tmux session on a remote server to which you're connected using
+mosh/ssh. There is no syncronization in the other direction, but it's
+unnecessary, as you can use the native paste of your local machine to access
+the copied text in any context.
+
+This works because the shell can modify the local clipboard via escape sequences.
+Tmux can send these escape sequences on copy, as can vim via the vim-oscyank plugin.
+Since they're just escape sequences, they modify your local clipboard even if
+they're being sent from a machine that you're connected to via ssh, mosh, or
+ssh twice, or mosh then ssh, etc.
+
+#### Requires:
 * mosh 1.4.0
 * tmux >=3.3 (if using with mosh, otherwise version doesn't matter)
 * [vim-oscyank](https://github.com/ojroques/vim-oscyank)
 * a local terminal that supports OSC 52 copy e.g. iTerm 2, with the modify
     local clipboard setting turned on in preferences
 
-Idea: the shell can modify the local clipboard via escape sequences. Tmux can
-send these escape sequences on copy, as can vim via the vim-oscyank plugin.
-Since they're just escape sequences, they modify your local clipboard even if
-they're being sent from a machine that you're connected to via ssh, mosh, or
-ssh twice, or mosh then ssh, etc.
 
 You can test that your terminal supports OSC 52 copy by running
 
@@ -242,6 +250,10 @@ $ printf "\033]52;c;$(printf "%s" "hello" | base64)\a"
 
 after which "hello" should be in your local clipboard.
 
+macOS Terminal doesn't support this natively, but can be made to by using the
+shell wrapper program [osc52pty](https://github.com/roy2220/osc52pty)
+
+#### Steps:
 To make this work in tmux, add the following to your `tmux.conf`
 
 ```console
@@ -255,8 +267,8 @@ tmux, even when tmux is running on a server to which you're connected via
 mosh/ssh.
 Again, if using mosh, you need tmux >=3.3.
 
-To make this work in vim, install the vim-oscyank plugin, and add a convenient
-mapping to copy to clipboard to your vimrc, like:
+To make this work in vim, install the [vim-oscyank](https://github.com/ojroques/vim-oscyank)
+plugin, and add a convenient mapping to copy to clipboard to your vimrc, like:
 
 ```console
 nmap <leader>c <Plug>OSCYank
@@ -269,5 +281,20 @@ If using tmux >=3.3, you need this in your vimrc too:
 let g:oscyank_term = 'default'
 ```
 
+#### Testing/Using:
 Now you should be able to copy to the local clipboard via your mapping, even
-when vim is running on a remote server to which you're connected with mosh/ssh.
+when vim is running on a remote server to which you're connected with mosh/ssh,
+and/or in a tmux session.
+
+* To test this in tmux, open a tmux session run the command `printf "\033]52;c;$(printf "%s" "hello" | base64)\a"`.
+    If `hello` is now in your local clipboard, then it's working. Now you
+    should be able to copy text in tmux, however you have that set up, and
+    have it automatically appear in your local clipboard. For me, this
+    involves making a selection in tmux by clicking and dragging with my mouse.
+    When I release the mouse button, the selection disappears, and the text
+    is copied ("copy on select").  I think this requires `set -g mouse on` in `tmux.conf`.
+* To use this in vim, assuming you mapped the key sequences that I suggest
+    above, just open vim, select some text, and press your leader key followed
+    by `c`. A message should appear from the oscyank plugin that some
+    characters were copied. They should be in your local clipboard for pasting
+    with ctr-v or cmd-v, etc.
