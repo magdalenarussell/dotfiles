@@ -92,8 +92,9 @@ let mapleader = ","
 " #################################
 " #### Plug 'tpope/vim-fugitive'           " git integration
 " Plug 'ojroques/vim-oscyank'
-nmap <leader>c <Plug>OSCYank
-vnoremap <leader>c :OSCYANK<CR>
+nmap <leader>c <Plug>OSCYankOperator
+nmap <leader>cc <leader>c_
+vmap <leader>c <Plug>OSCYankVisual
 
 " #### Plug 'altercation/vim-colors-solarized' " Colorscheme
 " Color scheme (terminal)
