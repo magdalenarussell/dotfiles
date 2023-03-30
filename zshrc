@@ -15,7 +15,7 @@ antigen use oh-my-zsh
 #antigen bundle virtualenvwrapper
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-history-substring-search
-antigen theme https://gist.github.com/willdumm/c672692545433a858303c079b64955ca gallifrey-nve
+antigen theme https://gist.github.com/magdalenarussell/8d780187eaadd5e95e60309dc8806476 gallifrey-nve
 # Tell antigen that you're done.
 antigen apply
 
@@ -37,4 +37,3 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
-
