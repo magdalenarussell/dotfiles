@@ -5,7 +5,7 @@ stty -ixon
 autoload -Uz compinit
 compinit
 export EDITOR="nvim"
-
+export PATH="/Library/TeX/texbin:$PATH"
 
 ## antigen stuff
 source $HOME/.antigen/antigen.zsh
@@ -36,4 +36,4 @@ else
     fi
 fi
 unset __conda_setup
-# <<< conda initialize <<<
+export PATH="/Users/magdalenarussell/.pixi/bin:$PATH"
