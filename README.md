@@ -3,7 +3,7 @@
 To install, run
 
 ```console
-git clone git@gitlab.com:willdumm/dotfiles.git ~/.dotfiles --recursive
+git clone git@github.com:magdalenarussell/dotfiles.git ~/.dotfiles --recursive
 cd ~/.dotfiles
 ./install
 ```
