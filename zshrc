@@ -25,18 +25,18 @@ fpath=(~/.zsh $fpath)
 
 export PATH="/net/dewitt/vol1/home/magruss/.pixi/bin:$PATH"
 export PATH="$HOME/.dotfiles/bin:$PATH"
+export PATH="/Users/magdalenarussell/.pixi/bin:$PATH"
 
-# >>> mamba initialize >>>
-# !! Contents within this block are managed by 'micromamba shell init' !!
-export MAMBA_EXE='/net/dewitt/vol1/home/magruss/y/micromamba';
-export MAMBA_ROOT_PREFIX='/net/dewitt/vol1/home/magruss/micromamba';
-__mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__mamba_setup"
-else
-    alias micromamba="$MAMBA_EXE"  # Fallback on help from micromamba activate
-fi
-unset __mamba_setup
-# <<< mamba initialize <<<
 
-alias conda='micromamba'
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+
+# bun completions
+[ -s "/Users/magdalenarussell/.bun/_bun" ] && source "/Users/magdalenarussell/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
