@@ -23,17 +23,20 @@ fpath=(~/.zsh $fpath)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.zshrc_machine_specific ] && source ~/.zshrc_machine_specific
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/magdalenarussell/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+export PATH="/net/dewitt/vol1/home/magruss/.pixi/bin:$PATH"
+export PATH="$HOME/.dotfiles/bin:$PATH"
+
+# >>> mamba initialize >>>
+# !! Contents within this block are managed by 'micromamba shell init' !!
+export MAMBA_EXE='/net/dewitt/vol1/home/magruss/y/micromamba';
+export MAMBA_ROOT_PREFIX='/net/dewitt/vol1/home/magruss/micromamba';
+__mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
 if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
+    eval "$__mamba_setup"
 else
-    if [ -f "/Users/magdalenarussell/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/magdalenarussell/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/magdalenarussell/miniconda3/bin:$PATH"
-    fi
+    alias micromamba="$MAMBA_EXE"  # Fallback on help from micromamba activate
 fi
-unset __conda_setup
-export PATH="/Users/magdalenarussell/.pixi/bin:$PATH"
+unset __mamba_setup
+# <<< mamba initialize <<<
+
+alias conda='micromamba'
