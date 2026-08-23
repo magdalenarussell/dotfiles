@@ -1,6 +1,7 @@
 - defaults:
     link:
       relink: true
+      create: true
 
 - clean: ['~']
 
@@ -10,6 +11,7 @@
     ~/.tmux.conf: tmux.conf
     ~/NOTES.md: NOTES.md
     ~/.config/nvim/init.vim: init.vim
+    ~/.claude/skills: claude/skills
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
