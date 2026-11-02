@@ -168,6 +168,10 @@ If a project does acquire outside users, its own `CLAUDE.md` overrides this.
   mock this to return..." — stop. Difficult-to-test code usually means the design
   needs work. Ask rather than faking.
 - New behavior in a diff needs a corresponding test.
+- **No tests for plotting code.** Don't write tests that exercise figure or
+  plotting functions — not for the plot itself, its styling, or whether it saves.
+  If plotting code contains a real calculation (a summary statistic, a transform,
+  a binning or normalization step), pull that out and test it on its own.
 - Unit tests for components in isolation, integration tests for interactions,
   hypothesis for property-based testing where it fits.
 
