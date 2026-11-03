@@ -59,6 +59,12 @@ Write for a person seeing the work for the first time. Concise, plain English.
   the time-tracking class to reflect that it now supports multiple axes", not
   "renamed `TimeTracker` to `MaturationTracker`". This applies every time,
   including in an "other changes" section, and whether or not I mention it.
+- **Keep it short.** This applies to issue bodies and PR descriptions alike. A
+  few sentences plus a handful of bullets is the target; a page of prose is not.
+  Lately these have been far too verbose. Cut background the reader doesn't need,
+  don't restate the same point in two places, and leave out anything a reviewer
+  can see from the diff. An issue states the problem, why it matters, and what
+  done looks like — nothing more.
 - **No file-by-file breakdowns.** Summarize what changed and why.
 - **Describe the branch as it stands off the default branch.** Reviewers don't
   need the iteration history — fixes made during development, dead ends, or
